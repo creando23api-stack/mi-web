@@ -3,74 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes</title>
+    <title>Registro de Clientes</title>
+    <!-- CSS de la app -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Iconos de FontAwesome para darle un toque visual moderno -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <header class="encabezado">
-        <h1>Sistema de Registro de Clientes</h1>
-        <p>Ingresa la información principal de tus clientes</p>
+    <!-- Navegación Superior -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-laptop-code"></i> Soporte & Servicios
+        </div>
+        <div class="nav-links">
+            <a href="#registro"><i class="fa-solid fa-user-plus"></i> Registrar Cliente</a>
+        </div>
+    </nav>
+
+    <!-- Banner Principal con Imagen de Fondo -->
+    <header class="hero">
+        <div class="hero-overlay">
+            <h1>Gestión Especializada de Clientes</h1>
+            <p>Registra nuevos proyectos, servicios técnicos e información clave de contacto en un solo lugar.</p>
+        </div>
     </header>
 
-    <main class="contenedor">
+    <!-- Contenido Principal -->
+    <main class="contenedor" id="registro">
         
         <!-- Alerta de Confirmación -->
         {% if mensaje %}
             <div class="alerta-exito">
-                <p><strong>{{ mensaje }}</strong></p>
+                <i class="fa-solid fa-circle-check"></i> {{ mensaje }}
             </div>
         {% endif %}
 
-        <!-- Formulario de Ingreso de Cliente -->
-        <section class="tarjeta">
-            <h2>Ingresar Nuevo Cliente</h2>
+        <!-- Tarjeta del Formulario -->
+        <section class="tarjeta-form">
+            <div class="encabezado-form">
+                <h2><i class="fa-solid fa-id-card"></i> Datos del Cliente</h2>
+                <p>Completa los campos principales para iniciar la atención</p>
+            </div>
+
             <form action="/" method="POST">
                 
                 <div class="campo">
-                    <label for="nombre">Nombre Completo *</label>
+                    <label for="nombre"><i class="fa-solid fa-user"></i> Nombre Completo *</label>
                     <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan Pérez">
                 </div>
 
                 <div class="filas-dobles">
                     <div class="campo">
-                        <label for="correo">Correo Electrónico *</label>
+                        <label for="correo"><i class="fa-solid fa-envelope"></i> Correo Electrónico *</label>
                         <input type="email" id="correo" name="correo" required placeholder="cliente@correo.com">
                     </div>
 
                     <div class="campo">
-                        <label for="telefono">Teléfono *</label>
+                        <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono *</label>
                         <input type="tel" id="telefono" name="telefono" required placeholder="Ej. +503 7000-0000">
                     </div>
                 </div>
 
                 <div class="campo">
-                    <label for="empresa">Empresa / Negocio</label>
-                    <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa (opcional)">
+                    <label for="empresa"><i class="fa-solid fa-building"></i> Empresa / Negocio</label>
+                    <input type="text" id="empresa" name="empresa" placeholder="Nombre del negocio o empresa (opcional)">
                 </div>
 
                 <div class="campo">
-                    <label for="notas">Notas / Información Adicional</label>
-                    <textarea id="notas" name="notas" rows="3" placeholder="Detalles de contacto o requerimientos del cliente..."></textarea>
+                    <label for="notas"><i class="fa-solid fa-clipboard-list"></i> Detalle del Servicio / Notas</label>
+                    <textarea id="notas" name="notas" rows="3" placeholder="Descripción del equipo, falla o requerimiento especial..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-guardar">Registrar Cliente</button>
+                <button type="submit" class="btn-guardar">
+                    <i class="fa-solid fa-paper-plane"></i> Guardar Cliente
+                </button>
             </form>
         </section>
 
         <!-- Muestra de Datos Capturados -->
         {% if cliente %}
-            <section class="tarjeta resumen-cliente">
-                <h3>Último Cliente Registrado (Vista Previa)</h3>
-                <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
-                <p><strong>Correo:</strong> {{ cliente.correo }}</p>
-                <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
-                <p><strong>Empresa:</strong> {{ cliente.empresa or 'N/A' }}</p>
-                <p><strong>Notas:</strong> {{ cliente.notas or 'Sin observaciones' }}</p>
+            <section class="tarjeta-resumen">
+                <h3><i class="fa-solid fa-user-check"></i> Último Cliente Ingresado</h3>
+                <div class="detalle-cliente">
+                    <p><strong><i class="fa-solid fa-user"></i> Nombre:</strong> {{ cliente.nombre }}</p>
+                    <p><strong><i class="fa-solid fa-envelope"></i> Correo:</strong> {{ cliente.correo }}</p>
+                    <p><strong><i class="fa-solid fa-phone"></i> Teléfono:</strong> {{ cliente.telefono }}</p>
+                    <p><strong><i class="fa-solid fa-building"></i> Empresa:</strong> {{ cliente.empresa or 'N/A' }}</p>
+                    <p><strong><i class="fa-solid fa-note-sticky"></i> Notas:</strong> {{ cliente.notas or 'Sin observaciones' }}</p>
+                </div>
             </section>
         {% endif %}
 
     </main>
+
+    <footer>
+        <p>&copy; 2026 - Sistema de Gestión de Clientes</p>
+    </footer>
 
 </body>
 </html>
