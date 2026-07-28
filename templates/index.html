@@ -3,43 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Clientes</title>
-    <!-- CSS de la app -->
+    <title>Registro de Clientes Seguros</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Iconos de FontAwesome para darle un toque visual moderno -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Navegación Superior -->
     <nav class="navbar">
         <div class="logo">
-            <i class="fa-solid fa-laptop-code"></i> Soporte & Servicios
+            <i class="fa-solid fa-shield-halved"></i> Soporte & Servicios
         </div>
         <div class="nav-links">
             <a href="#registro"><i class="fa-solid fa-user-plus"></i> Registrar Cliente</a>
         </div>
     </nav>
 
-    <!-- Banner Principal con Imagen de Fondo -->
     <header class="hero">
         <div class="hero-overlay">
             <h1>Gestión Especializada de Clientes</h1>
-            <p>Registra nuevos proyectos, servicios técnicos e información clave de contacto en un solo lugar.</p>
+            <p>Portal protegido con validación de datos en tiempo real y cifrado de conexión.</p>
         </div>
     </header>
 
-    <!-- Contenido Principal -->
     <main class="contenedor" id="registro">
         
-        <!-- Alerta de Confirmación -->
         {% if mensaje %}
             <div class="alerta-exito">
                 <i class="fa-solid fa-circle-check"></i> {{ mensaje }}
             </div>
         {% endif %}
 
-        <!-- Tarjeta del Formulario -->
         <section class="tarjeta-form">
             <div class="encabezado-form">
                 <h2><i class="fa-solid fa-id-card"></i> Datos del Cliente</h2>
@@ -47,41 +40,55 @@
             </div>
 
             <form action="/" method="POST">
+                <!-- TOKEN DE SEGURIDAD CSRF OBLIGATORIO -->
+                {{ form.csrf_token }}
                 
                 <div class="campo">
                     <label for="nombre"><i class="fa-solid fa-user"></i> Nombre Completo *</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan Pérez">
+                    {{ form.nombre(placeholder="Ej. Juan Pérez") }}
+                    {% for error in form.nombre.errors %}
+                        <span class="error-validacion">{{ error }}</span>
+                    {% endfor %}
                 </div>
 
                 <div class="filas-dobles">
                     <div class="campo">
                         <label for="correo"><i class="fa-solid fa-envelope"></i> Correo Electrónico *</label>
-                        <input type="email" id="correo" name="correo" required placeholder="cliente@correo.com">
+                        {{ form.correo(placeholder="cliente@correo.com") }}
+                        {% for error in form.correo.errors %}
+                            <span class="error-validacion">{{ error }}</span>
+                        {% endfor %}
                     </div>
 
                     <div class="campo">
                         <label for="telefono"><i class="fa-solid fa-phone"></i> Teléfono *</label>
-                        <input type="tel" id="telefono" name="telefono" required placeholder="Ej. +503 7000-0000">
+                        {{ form.telefono(placeholder="Ej. +503 7000-0000") }}
+                        {% for error in form.telefono.errors %}
+                            <span class="error-validacion">{{ error }}</span>
+                        {% endfor %}
                     </div>
                 </div>
 
                 <div class="campo">
                     <label for="empresa"><i class="fa-solid fa-building"></i> Empresa / Negocio</label>
-                    <input type="text" id="empresa" name="empresa" placeholder="Nombre del negocio o empresa (opcional)">
+                    {{ form.empresa(placeholder="Nombre del negocio o empresa (opcional)") }}
+                    {% for error in form.empresa.errors %}
+                        <span class="error-validacion">{{ error }}</span>
+                    {% endfor %}
                 </div>
 
                 <div class="campo">
                     <label for="notas"><i class="fa-solid fa-clipboard-list"></i> Detalle del Servicio / Notas</label>
-                    <textarea id="notas" name="notas" rows="3" placeholder="Descripción del equipo, falla o requerimiento especial..."></textarea>
+                    {{ form.notas(rows="3", placeholder="Descripción del equipo, falla o requerimiento especial...") }}
+                    {% for error in form.notas.errors %}
+                        <span class="error-validacion">{{ error }}</span>
+                    {% endfor %}
                 </div>
 
-                <button type="submit" class="btn-guardar">
-                    <i class="fa-solid fa-paper-plane"></i> Guardar Cliente
-                </button>
+                {{ form.submit(class="btn-guardar") }}
             </form>
         </section>
 
-        <!-- Muestra de Datos Capturados -->
         {% if cliente %}
             <section class="tarjeta-resumen">
                 <h3><i class="fa-solid fa-user-check"></i> Último Cliente Ingresado</h3>
@@ -98,7 +105,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 - Sistema de Gestión de Clientes</p>
+        <p>&copy; 2026 - Sistema de Gestión Protegido</p>
     </footer>
 
 </body>
