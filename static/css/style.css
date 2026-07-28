@@ -2,51 +2,94 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    padding-bottom: 40px;
+    background-color: #f8fafc;
+    color: #1e293b;
 }
 
-.encabezado {
-    background-color: #1a252f;
+/* Barra de Navegación */
+.navbar {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #38bdf8;
+}
+
+.nav-links a {
+    color: #f8fafc;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Hero / Header con Imagen */
+.hero {
+    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
     color: white;
     text-align: center;
-    padding: 30px 20px;
+    padding: 60px 20px;
 }
 
-.encabezado h1 {
-    font-size: 2rem;
-    margin-bottom: 5px;
+.hero h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
 }
 
-.contenedor {
+.hero p {
+    font-size: 1.05rem;
+    color: #cbd5e1;
     max-width: 600px;
-    margin: 30px auto;
-    padding: 0 15px;
+    margin: 0 auto;
 }
 
-.tarjeta {
+/* Contenedor */
+.contenedor {
+    max-width: 650px;
+    margin: -30px auto 40px;
+    padding: 0 20px;
+}
+
+/* Tarjetas */
+.tarjeta-form, .tarjeta-resumen {
     background: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.encabezado-form {
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 15px;
     margin-bottom: 20px;
 }
 
-.tarjeta h2 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    color: #2c3e50;
-    border-bottom: 2px solid #ecf0f1;
-    padding-bottom: 10px;
+.encabezado-form h2 {
+    color: #0f172a;
+    font-size: 1.4rem;
+}
+
+.encabezado-form p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-top: 4px;
 }
 
 .campo {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 }
 
 .filas-dobles {
@@ -62,8 +105,13 @@ label {
     display: block;
     font-weight: 600;
     margin-bottom: 6px;
-    font-size: 0.9rem;
-    color: #444;
+    font-size: 0.88rem;
+    color: #334155;
+}
+
+label i {
+    color: #0284c7;
+    margin-right: 5px;
 }
 
 input[type="text"],
@@ -71,52 +119,66 @@ input[type="email"],
 input[type="tel"],
 textarea {
     width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s;
+    transition: all 0.2s ease;
+    background-color: #f8fafc;
 }
 
-input:focus,
-textarea:focus {
-    border-color: #3498db;
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #0284c7;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
 }
 
 .btn-guardar {
     width: 100%;
-    background-color: #27ae60;
+    background-color: #0284c7;
     color: white;
     border: none;
-    padding: 12px;
+    padding: 14px;
     font-size: 1rem;
-    font-weight: bold;
-    border-radius: 5px;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background 0.2s ease;
     margin-top: 10px;
-    transition: background 0.2s;
 }
 
 .btn-guardar:hover {
-    background-color: #219150;
+    background-color: #0369a1;
 }
 
 .alerta-exito {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 20px;
-    text-align: center;
+    font-weight: 600;
 }
 
-.resumen-cliente {
-    border-left: 5px solid #3498db;
+.tarjeta-resumen {
+    border-left: 5px solid #0284c7;
 }
 
-.resumen-cliente p {
-    margin-bottom: 8px;
+.tarjeta-resumen h3 {
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+.detalle-cliente p {
+    margin-bottom: 10px;
     font-size: 0.95rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #94a3b8;
+    font-size: 0.85rem;
 }
