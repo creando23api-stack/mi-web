@@ -21,7 +21,7 @@
     <header class="hero">
         <div class="hero-overlay">
             <h1>Gestión Especializada de Clientes</h1>
-            <p>Portal protegido con validación de datos en tiempo real y cifrado de conexión.</p>
+            <p>Portal protegido con validación de datos en tiempo real, protección CSRF y base de datos permanente.</p>
         </div>
     </header>
 
@@ -89,23 +89,29 @@
             </form>
         </section>
 
-        {% if cliente %}
-            <section class="tarjeta-resumen">
-                <h3><i class="fa-solid fa-user-check"></i> Último Cliente Ingresado</h3>
-                <div class="detalle-cliente">
-                    <p><strong><i class="fa-solid fa-user"></i> Nombre:</strong> {{ cliente.nombre }}</p>
-                    <p><strong><i class="fa-solid fa-envelope"></i> Correo:</strong> {{ cliente.correo }}</p>
-                    <p><strong><i class="fa-solid fa-phone"></i> Teléfono:</strong> {{ cliente.telefono }}</p>
-                    <p><strong><i class="fa-solid fa-building"></i> Empresa:</strong> {{ cliente.empresa or 'N/A' }}</p>
-                    <p><strong><i class="fa-solid fa-note-sticky"></i> Notas:</strong> {{ cliente.notas or 'Sin observaciones' }}</p>
+        <!-- Registros cargados desde PostgreSQL -->
+        <section class="tarjeta-resumen">
+            <h3><i class="fa-solid fa-database"></i> Clientes Registrados en Base de Datos</h3>
+            {% if clientes %}
+                <div class="lista-registros">
+                    {% for c in clientes %}
+                        <div class="item-cliente">
+                            <p><strong>#{{ c.id }} - {{ c.nombre }}</strong></p>
+                            <p><small><i class="fa-solid fa-envelope"></i> {{ c.correo }} | <i class="fa-solid fa-phone"></i> {{ c.telefono }}</small></p>
+                            {% if c.empresa %}<p><small><i class="fa-solid fa-building"></i> {{ c.empresa }}</small></p>{% endif %}
+                            {% if c.notas %}<p><small><i class="fa-solid fa-note-sticky"></i> {{ c.notas }}</small></p>{% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
-            </section>
-        {% endif %}
+            {% else %}
+                <p><small>No hay clientes almacenados en la base de datos todavía.</small></p>
+            {% endif %}
+        </section>
 
     </main>
 
     <footer>
-        <p>&copy; 2026 - Sistema de Gestión Protegido</p>
+        <p>&copy; 2026 - Sistema de Gestión de Clientes Protegido</p>
     </footer>
 
 </body>
