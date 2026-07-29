@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-# Clave secreta para tokens CSRF (toma la variable de entorno o usa la predeterminada)
+# Clave secreta para tokens CSRF
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'clave-secreta-mileni-store-2026')
 
 # Configuración de la Base de Datos PostgreSQL
@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Modelo seguro de la tabla de Clientes (ORM previene SQL Injection)
+# Modelo de la tabla de Clientes en PostgreSQL
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(80), nullable=False)
@@ -29,11 +29,10 @@ class Cliente(db.Model):
     empresa = db.Column(db.String(100), nullable=True)
     notas = db.Column(db.Text, nullable=True)
 
-# Crea la estructura de tablas automáticamente
 with app.app_context():
     db.create_all()
 
-# Formulario WTForms con validaciones estrictas y token CSRF automático
+# Formulario WTForms con validaciones estrictas
 class FormularioCliente(FlaskForm):
     nombre = StringField('Nombre Completo', validators=[
         DataRequired(message="El nombre es obligatorio."),
@@ -61,7 +60,6 @@ def index():
     form = FormularioCliente()
     mensaje = None
 
-    # validate_on_submit() valida la autenticidad del token CSRF y los tipos de datos
     if form.validate_on_submit():
         nuevo_cliente = Cliente(
             nombre=form.nombre.data.strip(),
@@ -73,13 +71,10 @@ def index():
         db.session.add(nuevo_cliente)
         db.session.commit()
         
-        mensaje = "¡Cliente registrado y guardado de forma segura en la base de datos!"
+        mensaje = "¡Gracias! Tus datos se han registrado correctamente."
         form = FormularioCliente(formdata=None)
 
-    # Consulta segura de todos los clientes registrados
-    lista_clientes = Cliente.query.order_by(Cliente.id.desc()).all()
-
-    return render_template('index.html', form=form, clientes=lista_clientes, mensaje=mensaje)
+    return render_template('index.html', form=form, mensaje=mensaje)
 
 if __name__ == '__main__':
     app.run(debug=False)
