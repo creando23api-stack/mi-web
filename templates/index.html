@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Clientes Seguros</title>
+    <title>Registro de Clientes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -21,7 +21,7 @@
     <header class="hero">
         <div class="hero-overlay">
             <h1>Gestión Especializada de Clientes</h1>
-            <p>Portal protegido con validación de datos en tiempo real, protección CSRF y base de datos permanente.</p>
+            <p>Ingresa tus datos a continuación para ponernos en contacto contigo.</p>
         </div>
     </header>
 
@@ -40,7 +40,6 @@
             </div>
 
             <form action="/" method="POST">
-                <!-- TOKEN DE SEGURIDAD CSRF OBLIGATORIO -->
                 {{ form.csrf_token }}
                 
                 <div class="campo">
@@ -89,29 +88,10 @@
             </form>
         </section>
 
-        <!-- Registros cargados desde PostgreSQL -->
-        <section class="tarjeta-resumen">
-            <h3><i class="fa-solid fa-database"></i> Clientes Registrados en Base de Datos</h3>
-            {% if clientes %}
-                <div class="lista-registros">
-                    {% for c in clientes %}
-                        <div class="item-cliente">
-                            <p><strong>#{{ c.id }} - {{ c.nombre }}</strong></p>
-                            <p><small><i class="fa-solid fa-envelope"></i> {{ c.correo }} | <i class="fa-solid fa-phone"></i> {{ c.telefono }}</small></p>
-                            {% if c.empresa %}<p><small><i class="fa-solid fa-building"></i> {{ c.empresa }}</small></p>{% endif %}
-                            {% if c.notas %}<p><small><i class="fa-solid fa-note-sticky"></i> {{ c.notas }}</small></p>{% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p><small>No hay clientes almacenados en la base de datos todavía.</small></p>
-            {% endif %}
-        </section>
-
     </main>
 
     <footer>
-        <p>&copy; 2026 - Sistema de Gestión de Clientes Protegido</p>
+        <p>&copy; 2026 - Sistema de Gestión de Clientes</p>
     </footer>
 
 </body>
